@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Materiais do Treinamento — IA</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #08080f;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    width: 100%;
+    padding: 44px 24px 36px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -120px; left: 50%; transform: translateX(-50%);
+    width: 500px; height: 350px;
+    background: radial-gradient(ellipse, rgba(83,74,183,0.28) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .eyebrow {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: #7F77DD; margin-bottom: 14px;
+    position: relative;
+  }
+  .header h1 {
+    font-size: clamp(26px, 7vw, 42px);
+    font-weight: 700; line-height: 1.12;
+    color: #fff; margin-bottom: 12px;
+    position: relative;
+  }
+  .header h1 span { color: #7F77DD; }
+  .header p {
+    font-size: clamp(13px, 3.5vw, 15px);
+    color: rgba(255,255,255,0.45);
+    line-height: 1.65;
+    max-width: 400px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  /* ── CARDS ── */
+  .cards {
+    width: 100%;
+    max-width: 860px;
+    padding: 28px 20px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    cursor: pointer;
+  }
+  .card:hover {
+    background: rgba(255,255,255,0.065);
+    transform: translateY(-2px);
+  }
+  .card.c-coral:hover  { border-color: rgba(216,90,48,0.45); }
+  .card.c-purple:hover { border-color: rgba(83,74,183,0.55); }
+  .card.c-green:hover  { border-color: rgba(29,158,117,0.45); }
+
+  .card-inner {
+    padding: 22px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+  }
+
+  /* ── ICON ── */
+  .card-icon {
+    width: 52px; height: 52px;
+    border-radius: 13px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+  }
+  .ci-coral  { background: rgba(216,90,48,0.18); }
+  .ci-purple { background: rgba(83,74,183,0.18); }
+  .ci-green  { background: rgba(29,158,117,0.18); }
+
+  /* ── TEXT ── */
+  .card-text { flex: 1; min-width: 0; }
+  .card-type {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .ct-coral  { color: #F0997B; }
+  .ct-purple { color: #AFA9EC; }
+  .ct-green  { color: #5DCAA5; }
+
+  .card-title {
+    font-size: clamp(15px, 4vw, 18px);
+    font-weight: 700; color: #fff;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .card-desc {
+    font-size: clamp(12px, 3vw, 13px);
+    color: rgba(255,255,255,0.42);
+    line-height: 1.6;
+  }
+
+  /* ── ARROW ── */
+  .card-arrow {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; flex-shrink: 0;
+    color: rgba(255,255,255,0.3);
+    transition: all 0.2s;
+  }
+  .card:hover .card-arrow {
+    border-color: rgba(255,255,255,0.25);
+    color: rgba(255,255,255,0.7);
+    transform: translateX(2px);
+  }
+
+  /* ── BOTTOM BAR ── */
+  .card-bar {
+    padding: 10px 20px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .bar-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%; flex-shrink: 0;
+  }
+  .bd-coral  { background: #D85A30; }
+  .bd-purple { background: #534AB7; }
+  .bd-green  { background: #1D9E75; }
+
+  .card-url {
+    font-size: 11px;
+    color: rgba(255,255,255,0.22);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    letter-spacing: 0.3px;
+    flex: 1;
+  }
+
+  /* ── BADGE ── */
+  .card-badge {
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 20px; flex-shrink: 0;
+  }
+  .bb-coral  { background: rgba(216,90,48,0.15);  color: #F0997B; }
+  .bb-purple { background: rgba(83,74,183,0.15);  color: #AFA9EC; }
+  .bb-green  { background: rgba(29,158,117,0.15); color: #5DCAA5; }
+
+  /* ── FOOTER ── */
+  .footer {
+    width: 100%;
+    padding: 20px 24px 32px;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    margin-top: auto;
+  }
+  .footer p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.18);
+    line-height: 1.65;
+  }
+  .footer strong { color: rgba(255,255,255,0.3); }
+
+  /* ── TABLET ≥ 600px ── */
+  @media (min-width: 600px) {
+    .header { padding: 56px 40px 44px; }
+    .cards  { padding: 36px 40px 48px; gap: 16px; }
+    .card-inner { padding: 26px 24px; gap: 20px; }
+    .card-bar   { padding: 12px 24px; }
+    .card-icon  { width: 58px; height: 58px; font-size: 24px; }
+  }
+
+  /* ── DESKTOP ≥ 900px ── */
+  @media (min-width: 900px) {
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 16px;
+      padding: 40px 24px 56px;
+    }
+    /* Apostila ocupa as 2 colunas */
+    .card.wide { grid-column: 1 / -1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="eyebrow">Treinamento de Inteligência Artificial</div>
+  <h1>Seus <span>Materiais</span></h1>
+  <p>Toque em qualquer card para acessar o material direto no seu dispositivo.</p>
+</div>
+
+<!-- CARDS -->
+<div class="cards">
+
+  <!-- Guia de Ferramentas -->
+  <a class="card c-coral" href="https://guia-de-ferramentas.vercel.app/" target="_blank" rel="noopener">
+    <div class="card-inner">
+      <div class="card-icon ci-coral">🗺️</div>
+      <div class="card-text">
+        <div class="card-type ct-coral">Material de Apoio</div>
+        <div class="card-title">Guia de Ferramentas</div>
+        <div class="card-desc">Mapa completo do arsenal de IA — 11 ferramentas com casos de uso, comparativos e dicas para escolher a certa para cada tarefa.</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="card-bar">
+      <div class="bar-dot bd-coral"></div>
+      <div class="card-url">guia-de-ferramentas.vercel.app</div>
+      <div class="card-badge bb-coral">Interativo</div>
+    </div>
+  </a>
+
+  <!-- Card de Prompt -->
+  <a class="card c-purple" href="http://o-prompt-perfeito.vercel.app/" target="_blank" rel="noopener">
+    <div class="card-inner">
+      <div class="card-icon ci-purple">⚡</div>
+      <div class="card-text">
+        <div class="card-type ct-purple">Referência Rápida</div>
+        <div class="card-title">O Prompt Perfeito</div>
+        <div class="card-desc">Fórmula dos 4 pilares, comparativo de prompts fracos vs poderosos e dicas de ouro para extrair o melhor de qualquer IA.</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="card-bar">
+      <div class="bar-dot bd-purple"></div>
+      <div class="card-url">o-prompt-perfeito.vercel.app</div>
+      <div class="card-badge bb-purple">Referência</div>
+    </div>
+  </a>
+
+  <!-- Apostila PDF — linha inteira no desktop -->
+  <a class="card c-green wide" href="https://drive.google.com/file/d/1FssfYXxCwBgur7hpIyF4BbMiLLjhzj8w/view?usp=drive_link" target="_blank" rel="noopener">
+    <div class="card-inner">
+      <div class="card-icon ci-green">📖</div>
+      <div class="card-text">
+        <div class="card-type ct-green">Apostila Completa</div>
+        <div class="card-title">Guia Completo do Participante</div>
+        <div class="card-desc">Todos os 6 módulos em PDF — história da IA, ferramentas, prompts, ética e o futuro. Seu material de referência para revisitar quando precisar.</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="card-bar">
+      <div class="bar-dot bd-green"></div>
+      <div class="card-url">drive.google.com — Apostila_Treinamento_IA.pdf</div>
+      <div class="card-badge bb-green">PDF</div>
+    </div>
+  </a>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p><strong>Treinamento de Inteligência Artificial</strong><br>Materiais exclusivos para participantes</p>
+</div>
+
+</body>
+</html>
